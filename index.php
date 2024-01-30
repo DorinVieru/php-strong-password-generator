@@ -4,10 +4,10 @@
     // RICHIAMO LA COMPONENTE FUNCTIONS
     include './partials/functions.php';
 
-    if (isset($_GET['password_lenght']) && ($_GET['password_lenght'] >= 5)) {
+    if (isset($_GET['password-lenght']) && $_GET['password-lenght'] != '') {
 
         // RECUPERO IL VALORE DEL FORM
-        $password_lenght = $_GET['password_lenght'];
+        $password_lenght = $_GET['password-lenght'];
 
         $password = generateRandomPassword($password_lenght);
     }
@@ -37,7 +37,7 @@
                     <div class="row align-items-end justify-content-center">
                         <div class="col-5 ps-5 ms-5">
                             <label for="password_lenght" class="form-label">Inserisci la lunghezza desiderata (minimo 5 caratteri)</label>
-                            <input type="tel" name="password_lenght" id="password_lenght" class=" form-control" value="<?php echo $_GET['password_lenght'] ?? '' ?>" require>
+                            <input type="number" min="5" max="48" name="password-lenght" id="password-lenght" class=" form-control" required value="<?php echo $_GET['password_lenght'] ?? '' ?>" require>
                         </div>
                         <div class=" col-4">
                             <button type="submit" class="btn btn-success">Genera la tua passsword</button>
@@ -46,7 +46,9 @@
                 </form>
             </div>
             <div class="col-12 pt-4">
-                <h5 class="text-success text-center"> La tua password è: <br> <?php echo ($_GET['password_lenght'] <= 4) ? 'Il numero di caratteri inseriti sono troppo pochi!!' : $password ?> </h5>
+                <?php if(isset($password)) { ?>
+                    <h5 class="text-center text-danger"><?php echo "La tua password è: $password"; ?></h5>
+                <?php } ?>
             </div>
         </div>
     </div>

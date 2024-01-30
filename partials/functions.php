@@ -9,17 +9,23 @@
         // RECUPERO LA LUNGHEZZA DELLA STRINGA DI TUTTI I CARATTERI
         $allCharactersLenght = strlen($allCharacters) - 1;
 
-        // CREO UN ARRAY PER LA PASSWORD
-        $password = [];
+        // CREO UNA VARIAB9ILE PER LA PASSWORD E UNA CHE CONTERRA' IL VALORE DA RESTITUIRE
+        $password = '';
+        $result = '';
 
+        
+        if($password_lenght < 5 || $password_lenght > 48){
+            $result = "Il valore della password deve essere compreso tra 5 e 48 caratteri!";
+            return $result;
+        }
 
-        for ($i = 0; $i < ($password_lenght); $i++) {
-            $password[] = $allCharacters[random_int(0, $allCharactersLenght)];
-        };
+        while(strlen($password) < $password_lenght){
+            $index = rand(0, $allCharactersLenght); //INDICE CHE VERRA' USATO NELLA STRINGA DEI CARATTERI TOTALI PER RECUPERARE UN CARATTERE CASUALE
 
-        // TRASFORMO L'ARRAY IN UNA STRINGA CON IMPLODE
-        $password = implode($password);
-
+            // $char = $allCharacters[$index];
+            $password .= $allCharacters[$index];
+        }
+        
         // UNISCO I CARATTERI OBBLIGATORI CON I CARATTERI NON OBBLIGATORI
         $password_finale = $password;
 
@@ -27,5 +33,6 @@
         $password_finale = str_shuffle($password_finale);
 
         return $password_finale;
+        return $result;
     }
 ?>
